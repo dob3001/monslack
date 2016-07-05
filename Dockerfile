@@ -20,6 +20,7 @@ RUN cd /usr/bin \
   && ln -sf python2.7 python \
   && ln -sf python2.7-config python-config \
 && ln -sf pip2.7 pip
+RUN pip install python-daemon
 RUN mkdir -p /opt/monslack
 RUN mkdir -p /etc/monslack/
 ADD monitor.py /opt/monslack/

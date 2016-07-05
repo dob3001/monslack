@@ -6,6 +6,7 @@ import sys
 import time
 import requests
 import psutil
+import daemon
 from collections import namedtuple
 
 def _disk_usage(path):
@@ -119,9 +120,7 @@ def _load_data():
 
 configdata = _load_config()
 
-while(1):
-    
+with daemon.DaemonContext():
     _check_for_errors(configdata)
-
     time.sleep(configdata["interval"])
 
