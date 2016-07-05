@@ -22,6 +22,7 @@ docker start monslack
 
 Example config.json
 
+```javascript
 {
   "hostname": "james' brain",
   "cpuwarnlevel": 6,
@@ -39,4 +40,4 @@ Example config.json
     "channel": "#monitor"
   }
 }
-
+```
