@@ -1,4 +1,4 @@
-Monslack
+# Monslack #
 
 This application is a simple python script that checks for 4 conditions..
 
@@ -9,18 +9,22 @@ This application is a simple python script that checks for 4 conditions..
 
 When installing I usually recommend on the host...
 
-mkdir -p /etc/monslack/
-create your config.json in this folder (example below!)
+* mkdir -p /etc/monslack/
+* Create your config.json in this folder (example below!)
 
 To install you need to pass in the config.json, the volumes (maybe not root if your docker volumes reside on it) your monitoring and the log folders, so something like this..
 
+```javascript
 docker run -it -v /etc/monslack/config.json:/etc/monslack/config.json -v /var/lib/postgresql:/var/lib/postgresql -v /var/log/:/var/log/ --name monslack monslack:0.1
+```
 
 You can then CTRL+D if it starts up OK (and no errors are found). Afterwhich you can start like...
 
+```javascript
 docker start monslack
+```
 
-Example config.json
+## Example config.json ##
 
 ```javascript
 {
