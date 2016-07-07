@@ -33,5 +33,5 @@ ADD monslack/checks/CPUCheck.py /opt/monslack/checks/
 ADD monslack/checks/LogCheck.py /opt/monslack/checks/
 ADD monslack/checks/MemoryCheck.py /opt/monslack/checks/
 #ADD config.json /etc/monslack/
-ENTRYPOINT ["/opt/run_monitor.py"]
-CMD ["start"]
+ENTRYPOINT /opt/run_monitor.py
+CMD "start"
