@@ -26,7 +26,12 @@ RUN pip install -r /opt/monslack/requirements.txt
 RUN mkdir -p /etc/monslack/
 ADD run_monitor.py /opt/
 ADD monslack/monitor.py /opt/monslack/
+ADD monslack/__init__.py /opt/monslack/
+ADD monslack/checks/__init__.py /opt/monslack/checks/
 ADD monslack/checks/DiskCheck.py /opt/monslack/checks/
+ADD monslack/checks/CPUCheck.py /opt/monslack/checks/
+ADD monslack/checks/LogCheck.py /opt/monslack/checks/
+ADD monslack/checks/MemoryCheck.py /opt/monslack/checks/
 #ADD config.json /etc/monslack/
 ENTRYPOINT ["python", "/opt/run_monitor.py", "start"]
 
