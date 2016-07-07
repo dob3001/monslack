@@ -20,10 +20,13 @@ RUN cd /usr/bin \
   && ln -sf python2.7 python \
   && ln -sf python2.7-config python-config \
 && ln -sf pip2.7 pip
-RUN pip install python-daemon
-RUN mkdir -p /opt/monslack
+RUN mkdir -p /opt/monslack/checks
+ADD requirements.txt /opt/monslack/
+RUN pip install -r /opt/monslack/requirements.txt
 RUN mkdir -p /etc/monslack/
-ADD monitor.py /opt/monslack/
+ADD run_monitor.py /opt/
+ADD monslack/monitor.py /opt/monslack/
+ADD monslack/checks/DiskCheck.py /opt/monslack/checks/
 #ADD config.json /etc/monslack/
-ENTRYPOINT ["python", "/opt/monslack/monitor.py"]
+ENTRYPOINT ["python", "/opt/run_monitor.py", "start"]
 

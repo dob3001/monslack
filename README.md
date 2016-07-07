@@ -43,5 +43,11 @@ docker start monslack
     "icon_emoji": ":monkey_face:",
     "channel": "#monitor"
   }
+  "checks": {
+    "disk": true,
+    "cpu": true,
+    "memory": true,
+    "log": true
+  }
 }
 ```
