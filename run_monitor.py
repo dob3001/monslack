@@ -1,3 +1,4 @@
+#!/usr/bin/python
 from daemon import runner
 
 from monslack.monitor import MonSlack
