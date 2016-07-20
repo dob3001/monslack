@@ -16,8 +16,8 @@ class MonSlack():
     def __init__(self):
         self.config = self._load_config()
         self.stdin_path = '/dev/null'
-        self.stdout_path = '/dev/tty'
-        self.stderr_path = '/dev/tty'
+        self.stdout_path = '/dev/stdout'
+        self.stderr_path = '/dev/stderr'
         self.pidfile_path =  '/var/run/monslack.pid'
         self.pidfile_timeout = 5
         self.disk = False

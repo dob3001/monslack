@@ -12,6 +12,7 @@ I have expanded the basic checks so you can also directly poll the machine via a
 * BOTNAME SERVERNAME load
 * BOTNAME SERVERNAME df
 * BOTNAME SERVERNAME mem
+* BOTNAME rollcall
 
 You need to enable a bot and don't forget to invite the bot into the channel you wish it to listen to...
 
@@ -23,7 +24,7 @@ When installing I usually recommend on the host...
 To install you need to pass in the config.json, the volumes (maybe not root if your docker volumes reside on it) your monitoring and the log folders, so something like this..
 
 ```javascript
-docker run -it -v /etc/monslack/config.json:/etc/monslack/config.json -v /var/lib/postgresql:/var/lib/postgresql -v /var/log/:/var/log/ --name monslack monslack:0.3
+docker run -d -v /etc/monslack/config.json:/etc/monslack/config.json -v /var/lib/postgresql:/var/lib/postgresql -v /var/log/:/var/log/ --name monslack monslack:0.3
 ```
 
 You can then CTRL+D if it starts up OK (and no errors are found). Afterwhich you can start like...
