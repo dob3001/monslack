@@ -5,11 +5,11 @@ import os
 import sys
 import time
 import requests
-import psutil
 from monslack.checks.DiskCheck import DiskCheck
 from monslack.checks.CPUCheck import CPUCheck
 from monslack.checks.MemoryCheck import MemoryCheck
 from monslack.checks.LogCheck import LogCheck
+from monslack.SlackBot import SlackBot
 
 class MonSlack():
 
@@ -33,7 +33,8 @@ class MonSlack():
             self.memory = MemoryCheck(self.config)
         if self.config["checks"]["log"]:
             self.log = LogCheck(self.config)
-
+        if self.config["bot"]["enabled"]:
+            self.bot = SlackBot(self.config)
 
 
     def _load_config(self, config="/etc/monslack/config.json"):
@@ -63,7 +64,12 @@ class MonSlack():
             hostname = os.uname()[1]
 
         payload['text'] = "%s: %s" % (hostname, text)
-        res = requests.post(self.config["webhookurl"], data=json.dumps(payload))
+        #If a connection error stops you sending don't just die
+        try:
+            res = requests.post(self.config["webhookurl"], data=json.dumps(payload))
+        except:
+            print "Unable to send message to slack!"
+            pass
         return res.text
 
 
@@ -90,6 +96,9 @@ class MonSlack():
                     (message, text) = self.log.check(log)
                     if message:
                         self._send_slack_error(text)
+
+            if self.bot:
+                self.bot.check()
 
             time.sleep(self.config["interval"])
 

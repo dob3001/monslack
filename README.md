@@ -7,6 +7,14 @@ This application is a simple python script that checks for 4 conditions..
 3. How much free memory is left (memoryfree)
 4. How much free disk space is left on partition X (diskwarnlvl, diskpaths)
 
+I have expanded the basic checks so you can also directly poll the machine via a bot, the current propsed syntax is..
+
+monbot <servername> load
+monbot <servername> df
+monbot <servername> mem
+
+You need to enable a bot and don't forget to invite the bot into the channel you wish it to listen to...
+
 When installing I usually recommend on the host...
 
 * mkdir -p /etc/monslack/
@@ -48,6 +56,12 @@ docker start monslack
     "cpu": true,
     "memory": true,
     "log": true
+  }
+  "bot": {
+    "name": "monbot",
+    "enabled": true,
+    "channel": "somechannel",
+    "token": "XXXXXXXXXX",
   }
 }
 ```
