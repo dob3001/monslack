@@ -23,11 +23,11 @@ When installing I usually recommend on the host...
 
 To install you need to pass in the config.json, the volumes (maybe not root if your docker volumes reside on it) your monitoring and the log folders, so something like this..
 
-```javascript
-docker run -d -v /etc/monslack/config.json:/etc/monslack/config.json -v /var/lib/postgresql:/var/lib/postgresql -v /var/log/:/var/log/ --name monslack monslack:0.3
-```
+LATEST DOCKER IMAGE: dob3001/monslack:0.4, https://hub.docker.com/r/dob3001/monslack/
 
-You can then CTRL+D if it starts up OK (and no errors are found). Afterwhich you can start like...
+```javascript
+docker run -d -v /etc/monslack/config.json:/etc/monslack/config.json -v /var/lib/postgresql:/var/lib/postgresql -v /var/log/:/var/log/ --name monslack dob3001/monslack:0.4
+```
 
 ```javascript
 docker start monslack
