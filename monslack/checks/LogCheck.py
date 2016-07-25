@@ -15,13 +15,18 @@ class LogCheck(object):
         f.close()
         for line in lines:
             for check in self.config['errorstrings']:
-                if check in line:
-                    items = line.split(" ")
-                    key = "%s-%s" % (items[0], items[1])
-                    value = "%s" % (' '.join(items[4:]))
-                    if not self._check_data(data, key):
-                        message = True
-                        text += "Seen at %s the error: %s\n" % (key, value)
+                try:
+                    if check in line:
+                        items = line.split(" ")
+                        key = "%s-%s" % (items[0], items[1])
+                        value = "%s" % (' '.join(items[4:]))
+                        if not self._check_data(data, key):
+                            message = True
+                            text += "Seen at %s the error: %s\n" % (key, value)
+                except:
+                    #Some times the split doesn't work so don't 'crash'
+                    message = False
+                    text = None
         return (message, text)       
 
     def _check_data(self, data, key):

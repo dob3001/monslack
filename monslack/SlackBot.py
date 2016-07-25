@@ -13,26 +13,28 @@ class SlackBot(object):
         sc = SlackClient(self.config["bot"]["token"])
         history = sc.api_call("channels.history", channel=self.config["bot"]["channel"], oldest=self.lastcheck )
         botname = "%s" % self.config["bot"]["name"]
-        for message in history["messages"]:
-            if botname in message["text"]:
-                timestamp = message["ts"]
-                command = message["text"].split(" ")
-                if command[1] == self.config["hostname"]:
-                    if command[2] == "df":
-                        self._action_df()    
-                        self._set_lastcheck(timestamp)
-                    elif command[2] == "mem":
-                        self._action_mem()
-                        self._set_lastcheck(timestamp)
-                    elif command[2] == "top":
-                        self._action_top()
-                        self._set_lastcheck(timestamp)
-                    else:
-                        self._send_message("I don't know what this action is '%s'. Supported actions: df, mem, top" % command[2])
-                        sc.api_call("chat.postMessage", as_user="true:", channel=self.config["bot"]["channel"], text="I don't know what this action is '%s'. Supported actions: df, mem, top" % command[2])
-                        self._set_lastcheck(timestamp)
-                elif command[1] == "rollcall":
-                    self._send_message("%s on %s reporting in" % (self.config["bot"]["name"], self.config["hostname"]))    
+        #sometimes there are no messages!
+        if "messages" in history:
+            for message in history["messages"]:
+                if botname in message["text"]:
+                    timestamp = message["ts"]
+                    command = message["text"].split(" ")
+                    if command[1] == self.config["hostname"]:
+                        if command[2] == "df":
+                            self._action_df()    
+                            self._set_lastcheck(timestamp)
+                        elif command[2] == "mem":
+                            self._action_mem()
+                            self._set_lastcheck(timestamp)
+                        elif command[2] == "top":
+                            self._action_top()
+                            self._set_lastcheck(timestamp)
+                        else:
+                            self._send_message("I don't know what this action is '%s'. Supported actions: df, mem, top" % command[2])
+                            sc.api_call("chat.postMessage", as_user="true:", channel=self.config["bot"]["channel"], text="I don't know what this action is '%s'. Supported actions: df, mem, top" % command[2])
+                            self._set_lastcheck(timestamp)
+                    elif command[1] == "rollcall":
+                        self._send_message("%s on %s reporting in" % (self.config["bot"]["name"], self.config["hostname"]))    
 
     def _set_lastcheck(self, timestamp):
         self.lastcheck = timestamp
